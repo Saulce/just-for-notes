@@ -41,7 +41,7 @@ Linux 支持很多文件类型，其中非常重要的文件类型有:
 
 ### Linux 目录树
 
-![](D:\.StudyWork\CodeBase\笔记\Linux\图片\Linux目录树-DzjzZEII.png)
+![Linux目录树-DzjzZEII](./assets/Linux目录树-DzjzZEII.png)
 
 **常见目录说明：**
 

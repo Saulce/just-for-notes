@@ -833,7 +833,7 @@ AIO 也就是 NIO 2。Java 7 中引入了 NIO 的改进版 NIO 2,它是异步 IO
 
 在一个线程T1中如何“优雅”地终止线程T2？这里的“优雅”指的是给T2一个料理后事的机会。
 
-![两阶段终止模式](D:\.StudyWork\CodeBase\笔记\Java\图片\两阶段终止模式.png)
+![两阶段终止模式](./assets/两阶段终止模式.png)
 
 #### 错误思路
 
@@ -976,7 +976,7 @@ synchronized 关键字修饰方法：`修饰符 synchronized 返回值类型 方
   1. 非静态：this
   2. 静态：当前类的字节码文件对象
 
-![同步方法](D:\.StudyWork\CodeBase\笔记\Java\图片\同步方法.png)
+![同步方法](./assets/同步方法.png)
 
 书写技巧：先写同步代码块，再把里面的代码抽取成方法
 

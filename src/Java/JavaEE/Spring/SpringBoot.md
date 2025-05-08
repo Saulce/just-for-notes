@@ -165,7 +165,7 @@ protected void addResourceHandlers(ResourceHandlerRegistry registry) {
 
 ### 配置文件
 
-![配置文档](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\配置文档.png)
+![配置文档](./assets/配置文档.png)
 
 .yml (.yaml) 文件取代 .properties 文件：
 
@@ -336,7 +336,7 @@ Spring Boot 通过`@EnableAutoConfiguration`开启自动装配，通过 SpringFa
 
 ####  `@PropertySource`（不常用）
 
-![配置文件优先级](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\配置文件优先级.webp)
+![配置文件优先级](./assets/配置文件优先级.webp)
 
 ### 参数校验
 

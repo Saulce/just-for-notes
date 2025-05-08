@@ -17,7 +17,7 @@ Redis 内部做了非常多的性能优化，比较重要的有下面 3 点：
 3. Redis 内置了多种优化过后的数据类型/结构实现，性能非常高。
 4. Redis 通信协议实现简单且解析高效。
 
-![](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\why-redis-so-fast-TbWX24ja.png)
+![](./assets/why-redis-so-fast-TbWX24ja.png)
 
 那既然都这么快了，为什么不直接用 Redis 当主数据库呢？主要是因为内存成本太高且 Redis 提供的数据持久化仍然有数据丢失的风险。
 
@@ -119,9 +119,9 @@ Elasticsearch 适用于全文搜索、复杂查询、实时数据分析和聚合
 
 Redis 提供了丰富的数据类型，常见的有五种数据类型：**String（字符串），Hash（哈希），List（列表），Set（集合）、Zset（有序集合）**。还有**3 种特殊数据类型**：HyperLogLog（基数统计）（2.8 版新增）、Bitmap （位图）（2.2 版新增）、Geospatial (地理位置)（3.2 版新增）。除了上面提到的之外，还有一些其他的比如 Bloom filter（布隆过滤器）、Bitfield（位域）、Stream（5.0 版新增）。
 
-![key](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\key.webp)
+![key](./assets/key.webp)
 
-![五种数据类型](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\五种数据类型.webp)
+![五种数据类型](./assets/五种数据类型.webp)
 
 Redis 五种数据类型的应用场景：
 
@@ -171,7 +171,7 @@ Redis 后续四种数据类型的应用场景如下：
 
 左边是 Redis 3.0版本的，也就是《Redis 设计与实现》这本书讲解的版本，现在看还是有点过时了，右边是现在 Redis 7.0 版本的。
 
-![数据类型与数据结构的关系](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\数据类型与数据结构的关系.webp)
+![数据类型与数据结构的关系](./assets/数据类型与数据结构的关系.webp)
 
 #### String 的底层实现
 
@@ -245,7 +245,7 @@ Zset 类型的底层数据结构是由**压缩列表或跳表**实现的：
 
 后台线程相当于一个消费者，生产者把耗时任务丢到任务队列中，消费者（BIO）不停轮询这个队列，拿出任务就去执行对应的方法即可。
 
-![后台线程](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\后台线程.webp)
+![后台线程](./assets/后台线程.webp)
 
 关闭文件、AOF 刷盘、释放内存这三个任务都有各自的任务队列：
 
@@ -257,7 +257,7 @@ Zset 类型的底层数据结构是由**压缩列表或跳表**实现的：
 
 Redis 6.0 版本之前的单线模式如下图：
 
-![redis单线程模型](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\redis单线程模型.webp)
+![redis单线程模型](./assets/redis单线程模型.webp)
 
 图中的蓝色部分是一个事件循环，是由主线程负责的，可以看到网络 I/O 和命令处理都是单线程。 Redis 初始化的时候，会做下面这几件事情：
 
@@ -349,7 +349,7 @@ AOF 文件的保存位置和 RDB 文件的位置相同，都是通过 `dir` 参�
 
 Redis 在执行完一条写操作命令后，就会把该命令以追加的方式写入到一个文件里，然后 Redis 重启时，会读取该文件记录的命令，然后逐一执行命令的方式来进行数据恢复。
 
-![Redis流程1](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\Redis流程1.webp)
+![Redis流程1](./assets/Redis流程1.webp)
 
 这里以「*set name xiaolin*」命令作为例子，Redis 执行了这条命令后，记录在 AOF 日志里的内容如下图：
 
@@ -375,7 +375,7 @@ Reids 是先执行写操作命令后，才将该命令记录到 AOF 日志里的
 
 先来看看Redis 写入 AOF 日志的过程，如下图：
 
-![写入AOF流程](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\写入AOF流程.webp)
+![写入AOF流程](./assets/写入AOF流程.webp)
 
 具体说说：
 
@@ -389,7 +389,7 @@ Redis 提供了 3 种写回硬盘的策略，控制的就是上面说的第三�
 - **Everysec**，这个单词的意思是「每秒」，所以它的意思是每次写操作命令执行完后，先将命令写入到 AOF 文件的内核缓冲区，然后每隔一秒将缓冲区里的内容写回到硬盘；
 - **No**，意味着不由 Redis 控制写回硬盘的时机，转交给操作系统控制写回的时机，也就是每次写操作命令执行完后，先将命令写入到 AOF 文件的内核缓冲区，再由操作系统决定何时将缓冲区内容写回硬盘。
 
-![写回策略表](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\写回策略表.webp)
+![写回策略表](./assets/写回策略表.webp)
 
 #### AOF 日志过大，会触发什么机制？
 
@@ -401,7 +401,7 @@ AOF 重写机制是在重写时，读取当前数据库中的所有键值对，�
 
 举个例子，在没有使用重写机制前，假设前后执行了「*set name xiaolin*」和「*set name xiaolincoding*」这两个命令的话，就会将这两个命令记录到 AOF 文件。
 
-![AOF重写](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\AOF重写.webp)
+![AOF重写](./assets/AOF重写.webp)
 
 但是**在使用重写机制后，就会读取 name 最新的 value（键值对） ，然后用一条 「set name xiaolincoding」命令记录到新的 AOF 文件**，之前的第一个命令就没有必要记录了，因为它属于「历史」命令，没有作用了。这样一来，一个键值对在重写日志中只用一条命令就行了。
 
@@ -422,7 +422,7 @@ Redis 的**重写 AOF 过程是由后台子进程 *bgrewriteaof* 来完成的**�
 
 在重写 AOF 期间，当 Redis 执行完一个写命令之后，它会**同时将这个写命令写入到 「AOF 缓冲区」和 「AOF 重写缓冲区」**。
 
-![AOF重写缓冲](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\AOF重写缓冲.webp)
+![AOF重写缓冲](./assets/AOF重写缓冲.webp)
 
 也就是说，在 bgrewriteaof 子进程执行 AOF 重写期间，主进程需要执行以下三个工作:
 
@@ -478,11 +478,11 @@ save 60 10000
 
 执行 bgsave 命令的时候，会通过 fork() 创建子进程，此时子进程和父进程是共享同一片内存数据的，因为创建子进程的时候，会复制父进程的页表，但是页表指向的物理内存还是一个，此时如果主线程执行读操作，则主线程和 bgsave 子进程互相不影响。
 
-![父子进程与物理内存1](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\父子进程与物理内存1.webp)
+![父子进程与物理内存1](./assets/父子进程与物理内存1.webp)
 
 如果主线程执行写操作，则被修改的数据会复制一份副本，然后 bgsave 子进程会把该副本数据写入 RDB 文件，在这个过程中，主线程仍然可以直接修改原来的数据。
 
-![父子进程与物理内存2](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\父子进程与物理内存2.webp)
+![父子进程与物理内存2](./assets/父子进程与物理内存2.webp)
 
 ### 为什么会有混合持久化？
 
@@ -560,7 +560,7 @@ Redis 使用的过期删除策略是「**惰性删除+定期删除**」这两种
 
 惰性删除的流程图如下：
 
-![惰性删除流程](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\惰性删除流程.webp)
+![惰性删除流程](./assets/惰性删除流程.webp)
 
 惰性删除策略的**优点**：
 
@@ -584,7 +584,7 @@ Redis 的定期删除的流程：
 
 定期删除的流程如下：
 
-![定时删除流程](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\定时删除流程.webp)
+![定时删除流程](./assets/定时删除流程.webp)
 
 定期删除策略的**优点**：
 
@@ -703,7 +703,7 @@ Redis 对象头中的 lru 字段，在 LRU 算法下和 LFU 算法下使用方�
 
 **在 LFU 算法中**，Redis对象头的 24 bits 的 lru 字段被分成两段来存储，高 16bit 存储 ldt(Last Decrement Time)，用来记录 key 的访问时间戳；低 8bit 存储 logc(Logistic Counter)，用来记录 key 的访问频次。
 
-![lru字段](D:\.StudyWork\CodeBase\笔记\数据库\Redis\图片\lru字段.webp)
+![lru字段](./assets/lru字段.webp)
 
 ## Redis 事务
 

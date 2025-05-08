@@ -216,7 +216,7 @@ MVCC 是一种并发控制机制，用于在多个并发事务同时读写数据
 
 #### MySQL 执行流程
 
-![mysql查询流程](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\mysql查询流程.webp)
+![mysql查询流程](./assets/mysql查询流程.webp)
 
 #### 第一步：连接器
 
@@ -478,7 +478,7 @@ mysql> SHOW VARIABLES LIKE 'datadir';
 
 比如，我这里有一个名为 my_test 的 database，该 database 里有一张名为 t_order 数据库表。
 
-![database](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\database.webp)
+![database](./assets/database.webp)
 
 然后，我们进入 /var/lib/mysql/my_test 目录，看看里面有什么文件？
 
@@ -501,7 +501,7 @@ t_order.ibd
 
 **表空间由段（segment）、区（extent）、页（page）、行（row）组成**，InnoDB存储引擎的逻辑存储结构大致如下图：
 
-![表空间结构.drawio](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\表空间结构.drawio.webp)
+![表空间结构.drawio](./assets/表空间结构.drawio.webp)
 
 #### 1、行（row）
 
@@ -563,7 +563,7 @@ Redundant 行格式我这里就不讲了，因为现在基本没人用了，这�
 
 先跟 Compact 行格式混个脸熟，它长这样：
 
-![COMPACT.drawio](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\COMPACT.drawio.webp)
+![COMPACT.drawio](./assets/COMPACT.drawio.webp)
 
 可以看到，一条完整的记录分为「记录的额外信息」和「记录的真实数据」两个部分。
 
@@ -591,7 +591,7 @@ CREATE TABLE `t_user` (
 
 现在 t_user 表里有这三条记录：
 
-![t_test](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\t_test.webp)
+![t_test](./assets/t_test.webp)
 
 接下来，我们看看看看这三条记录的行格式中的 「变长字段长度列表」是怎样存储的。
 
@@ -603,15 +603,15 @@ CREATE TABLE `t_user` (
 
 这些变长字段的真实数据占用的字节数会按照列的顺序**逆序存放**（等下会说为什么要这么设计），所以「变长字段长度列表」里的内容是「 03 01」，而不是 「01 03」。
 
-![变长字段长度列表1](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\变长字段长度列表1.webp)
+![变长字段长度列表1](./assets/变长字段长度列表1.webp)
 
 同样的道理，我们也可以得出**第二条记录**的行格式中，「变长字段长度列表」里的内容是「 04 02」，如下图：
 
-![变长字段长度列表2](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\变长字段长度列表2.webp)
+![变长字段长度列表2](./assets/变长字段长度列表2.webp)
 
 **第三条记录**中 phone 列的值是 NULL，**NULL 是不会存放在行格式中记录的真实数据部分里的**，所以「变长字段长度列表」里不需要保存值为 NULL 的变长字段的长度。
 
-![变长字段长度列表3](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\变长字段长度列表3.webp)
+![变长字段长度列表3](./assets/变长字段长度列表3.webp)
 
 #### 为什么「变长字段长度列表」的信息要按照逆序存放？
 
@@ -642,31 +642,31 @@ CREATE TABLE `t_user` (
 
 还是以 t_user 表的这三条记录作为例子：
 
-![t_test](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\t_test.webp)
+![t_test](./assets/t_test.webp)
 
 接下来，我们看看看看这三条记录的行格式中的 NULL 值列表是怎样存储的。
 
 先来看**第一条记录**，第一条记录所有列都有值，不存在 NULL 值，所以用二进制来表示是这样的：
 
-![null值列表1](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\null值列表1.webp)
+![null值列表1](./assets/null值列表1.webp)
 
 但是 InnoDB 是用整数字节的二进制位来表示 NULL 值列表的，现在不足 8 位，所以要在高位补 0，最终用二进制来表示是这样的：
 
-![null值列表2](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\null值列表2.webp)
+![null值列表2](./assets/null值列表2.webp)
 
 所以，对于第一条数据，NULL 值列表用十六进制表示是 0x00。
 
 接下来看**第二条记录**，第二条记录 age 列是 NULL 值，所以，对于第二条数据，NULL值列表用十六进制表示是 0x04。
 
-![null值列表3](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\null值列表3.webp)
+![null值列表3](./assets/null值列表3.webp)
 
 最后**第三条记录**，第三条记录 phone 列 和 age 列是 NULL 值，所以，对于第三条数据，NULL 值列表用十六进制表示是 0x06。
 
-![null值列表4](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\null值列表4.webp)
+![null值列表4](./assets/null值列表4.webp)
 
 我们把三条记录的 NULL 值列表都填充完毕后，它们的行格式是这样的：
 
-![null值列表5](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\null值列表5.webp)
+![null值列表5](./assets/null值列表5.webp)
 
 #### 每个数据库表的行格式都有「NULL 值列表」吗？
 
@@ -716,7 +716,7 @@ MySQL 中磁盘和内存交互的基本单位是页，一个页的大小一般�
 
 当发生行溢出时，在记录的真实数据处只会保存该列的一部分数据，而把剩余的数据放在「溢出页」中，然后真实数据处用 20 字节存储指向溢出页的地址，从而可以找到剩余数据所在的页。大致如下图所示。
 
-![行溢出](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\行溢出.webp)
+![行溢出](./assets/行溢出.webp)
 
 上面这个是 Compact 行格式在发生行溢出后的处理。
 
@@ -724,7 +724,7 @@ Compressed 和 Dynamic 这两个行格式和 Compact 非常类似，主要的区
 
 这两种格式采用完全的行溢出方式，记录的真实数据处不会存储该列的一部分数据，只存储 20 个字节的指针来指向溢出页。而实际的数据都存储在溢出页中，看起来就像下面这样：
 
-![行溢出2](D:\.StudyWork\CodeBase\笔记\数据库\MySQL\图片\行溢出2.webp)
+![行溢出2](./assets/行溢出2.webp)
 
 ### 小结
 

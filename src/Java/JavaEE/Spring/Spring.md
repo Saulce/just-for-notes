@@ -4,7 +4,7 @@ Spring 是一款开源的轻量级 Java 开发框架，旨在提高开发人员�
 
 一般说 Spring 框架指的都是 Spring Framework，它是很多模块的集合，使用这些模块可以很方便地协助我们进行开发，比如说 Spring 支持 IoC（Inversion of Control:控制反转） 和 AOP(Aspect-Oriented Programming:面向切面编程)、可以很方便地对数据库进行访问、可以很方便地集成第三方组件（电子邮件，任务，调度，缓存等等）、对单元测试支持比较好、支持 RESTful Java 应用程序的开发。
 
-![spring-framework](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\spring-framework.png)
+![spring-framework](./assets/spring-framework.png)
 
 Spring 最核心的思想就是不重新造轮子，开箱即用，提高开发效率。
 
@@ -18,17 +18,17 @@ Spring 提供的核心功能主要是 IoC 和 AOP。学习 Spring ，一定要�
 
 **Spring4.x 版本**：
 
-![](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\spring4.png)
+![spring4](./assets/spring4.png)
 
 **Spring5.x 版本**：
 
-![spring5](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\spring5.png)
+![spring5](./assets/spring5.png)
 
 Spring5.x 版本中 Web 模块的 Portlet 组件已经被废弃掉，同时增加了用于异步响应式处理的 WebFlux 组件。
 
 Spring 各个模块的依赖关系如下：
 
-![spring依赖](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\spring依赖.png)
+![spring依赖](./assets/spring依赖.png)
 
 #### Core Container
 
@@ -386,7 +386,7 @@ Spring 中提供的 `Aware` 接口主要有：
 2. 初始化这一步涉及到的步骤比较多，包含 `Aware` 接口的依赖注入、`BeanPostProcessor` 在初始化前后的处理以及 `InitializingBean` 和 `init-method` 的初始化操作。
 3. 销毁这一步会注册相关销毁回调接口，最后通过`DisposableBean` 和 `destory-method` 进行销毁。
 
-![spring-bean-lifestyle](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\spring-bean-lifestyle.png)
+![spring-bean-lifestyle](./assets/spring-bean-lifestyle.png)
 
 ## 登录功能
 
@@ -416,7 +416,7 @@ Spring 中提供的 `Aware` 接口主要有：
 
 **什么是Cookie？Cookie的作用是？**
 
-![cookie-sessionId](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\cookie-sessionId.png)
+![cookie-sessionId](./assets/cookie-sessionId.png)
 
 `Cookie` 和 `Session` 都是用来跟踪浏览器用户身份的会话方式，但是两者的应用场景不太一样。
 
@@ -495,7 +495,7 @@ public String readAllCookies(HttpServletRequest request) {
 
 关于这种认证方式更详细的过程如下：
 
-![session-cookie-authentication-process](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\session-cookie-authentication-process.png)
+![session-cookie-authentication-process](./assets/session-cookie-authentication-process.png)
 
 1. 用户向服务器发送用户名、密码、验证码用于登陆系统。
 2. 服务器验证通过后，服务器为用户创建一个 `Session`，并将 `Session` 信息存储起来。
@@ -548,7 +548,7 @@ RBAC 即基于角色的权限访问控制（Role-Based Access Control）。这�
 
 为了实现 RBAC 权限模型，数据库表的常见设计如下（一共 5 张表，2 张用户建立表之间的联系）：
 
-![数据库设计-权限](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\数据库设计-权限.png)
+![数据库设计-权限](./assets/数据库设计-权限.png)
 
 通过这个权限模型，我们可以创建不同的角色并为不同的角色分配不同的权限范围（菜单）。通常来说，如果系统对于权限控制要求比较严格的话，一般都会选择使用 RBAC 模型来做权限控制。
 
@@ -562,7 +562,7 @@ RBAC 即基于角色的权限访问控制（Role-Based Access Control）。这�
 
 但是，我们使用 `Token` 的话就不会存在这个问题，在我们登录成功获得 `Token` 之后，一般会选择存放在 `localStorage` （浏览器本地存储）中。然后我们在前端通过某些方式会给每个发到后端的请求加上这个 `Token`,这样就不会出现 CSRF 漏洞的问题。因为，即使你点击了非法链接发送了请求到服务端，这个非法请求是不会携带 `Token` 的，所以这个请求将是非法的。
 
-![token](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\token.png)
+![token](./assets/token.png)
 
 需要注意的是：不论是 `Cookie` 还是 `Token` 都无法避免 **跨站脚本攻击（Cross Site Scripting）XSS** 。
 
@@ -590,7 +590,7 @@ JWT 是目前最流行的跨域认证解决方案，是一种基于 Token 的认
 
 在基于 JWT 进行身份验证的的应用程序中，服务器通过 Payload、Header 和 Secret(密钥)创建 JWT 并将 JWT 发送给客户端。客户端接收到 JWT 之后，会将其保存在 Cookie 或者 localStorage 里面，以后客户端发出的所有请求都会携带这个令牌。
 
-![jwt-authentication process](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\jwt-authentication process.png)
+![jwt-authentication process](./assets/jwt-authentication process.png)
 
 简化后的步骤如下：
 
@@ -759,7 +759,7 @@ JWT 也不是银弹，也有很多缺陷，具体是选择 JWT 还是 Session �
 
 **执行流程**
 
-![拦截器](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\拦截器.png)
+![拦截器](./assets/拦截器.png)
 
 #### SSO (Single Sign On)
 
@@ -812,7 +812,7 @@ public class GlobalExceptionHandler {
 
 Aspect Oriented Programming (面向切面编程、面向方面编程)。其实就是面向特定方法编程。能够将那些与业务无关，却为业务模块所共同调用的逻辑或责任（例如日志记录、事务管理、权限控制、接口限流、接口幂等等）从核心业务逻辑中分离出来，通过动态代理、字节码操作等技术，实现代码的复用和解耦，提高代码的可维护性和可扩展性。
 
-![aop-program-execution](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\aop-program-execution.jpg)
+![aop-program-execution](./assets/aop-program-execution.jpg)
 
 动态代理是面向切面编程最主流的实现。Spring AOP就是基于动态代理的，是Spring框架的高级技术，旨在管理bean对象的过程中，通过底层的动态代理机制，对特定的方法进行编程。如果要代理的对象，实现了某个接口，那么 Spring AOP 会使用 **JDK Proxy**，去创建代理对象，而对于没有实现接口的对象，就无法使用 JDK Proxy 去进行代理了，这时候 Spring AOP 会使用 **Cglib** 生成一个被代理对象的子类来作为代理。当然也可以使用 **AspectJ** ！Spring AOP 已经集成了 AspectJ ，AspectJ 应该算的上是 Java 生态系统中最完整的 AOP 框架了。
 
@@ -1018,7 +1018,7 @@ MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心
 
 这个模式下 JSP 即是控制层（Controller）又是表现层（View）。显而易见，这种模式存在很多问题。比如控制逻辑和表现逻辑混杂在一起，导致代码重用率极低；再比如前端和后端相互依赖，难以进行测试维护并且开发效率极低。
 
-![mvc-mode1](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\mvc-mode1.png)
+![mvc-mode1](./assets/mvc-mode1.png)
 
 **Model 2 时代**
 
@@ -1028,7 +1028,7 @@ MVC 是模型(Model)、视图(View)、控制器(Controller)的简写，其核心
 - View：展示模型中的数据，只是用来展示。
 - Controller：接受用户请求，并将请求发送至 Model，最后返回数据给 JSP 并展示给用户
 
-![mvc-model2](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\mvc-model2.png)
+![mvc-model2](./assets/mvc-model2.png)
 
 Model2 模式下还存在很多问题，Model2 的抽象和封装程度还远远不够，使用 Model2 进行开发时不可避免地会重复造轮子，这就大大降低了程序的可维护性和复用性。
 
@@ -1054,7 +1054,7 @@ MVC 是一种设计模式，Spring MVC 是一款很优秀的 MVC 框架。Spring
 
 **Spring MVC 原理如下图所示：**
 
-![mvc工作原理](D:\.StudyWork\CodeBase\笔记\Java\JavaEE\Spring\图片\mvc工作原理.png)
+![mvc工作原理](./assets/mvc工作原理.png)
 
 **流程说明：**
 

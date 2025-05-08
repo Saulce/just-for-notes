@@ -2,7 +2,7 @@
 
 ## IP 基础知识
 
-![](D:\.StudyWork\CodeBase\笔记\计算机网络\图片\1.webp)
+![](./assets/1.webp)
 
 ###  IP 的基本认识
 

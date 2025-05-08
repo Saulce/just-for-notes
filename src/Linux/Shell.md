@@ -1,6 +1,6 @@
 # Shell脚本编程
 
-![shell介绍](D:\.StudyWork\CodeBase\笔记\Linux\图片\shell介绍.jpg)
+![shell介绍](./assets/shell介绍.jpg)
 
 ## Shell 变量
 
